@@ -3,12 +3,17 @@ package com.abnormallydriven.personlist
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.abnormallydriven.personlist.dagger.ApplicationResourcesModule
+import io.reactivex.Scheduler
 import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class PersonListViewModel constructor(private val personService: PersonService) : ViewModel() {
+@Singleton
+class PersonListViewModel @Inject constructor(private val personService: PersonService,
+                                              @ApplicationResourcesModule.UI private val uiScheduler : Scheduler,
+                                              @ApplicationResourcesModule.IO private val ioScheduler : Scheduler) : ViewModel() {
 
     private val personList : MutableLiveData<List<Person>> = MutableLiveData()
 
@@ -18,8 +23,8 @@ class PersonListViewModel constructor(private val personService: PersonService) 
 
     fun loadLatestData() {
         personService.getPersonList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(ioScheduler)
+                .observeOn(uiScheduler)
                 .subscribe(object : SingleObserver<List<Person>> {
                     override fun onSubscribe(d: Disposable) {}
 
@@ -34,5 +39,9 @@ class PersonListViewModel constructor(private val personService: PersonService) 
 
     fun getPersonList() : LiveData<List<Person>> {
         return personList
+    }
+
+    override fun onCleared() {
+        personList.value = listOf()
     }
 }

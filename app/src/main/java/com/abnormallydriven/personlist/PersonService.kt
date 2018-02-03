@@ -6,8 +6,11 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class PersonService constructor(private val resources: Resources) {
+@Singleton
+class PersonService @Inject constructor(private val resources: Resources) {
 
     private val random: Random = Random(System.currentTimeMillis())
     private val fakeNameList: MutableList<String> = mutableListOf()
