@@ -1,6 +1,5 @@
 package com.abnormallydriven.personlist.dagger
 
-import android.content.Context
 import android.content.res.Resources
 import com.abnormallydriven.personlist.PersonListApp
 import dagger.Module

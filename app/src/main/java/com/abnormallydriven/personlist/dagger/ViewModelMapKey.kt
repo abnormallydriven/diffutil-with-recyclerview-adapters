@@ -10,11 +10,10 @@ import kotlin.annotation.AnnotationTarget;
 import kotlin.annotation.MustBeDocumented;
 import kotlin.annotation.Retention;
 import kotlin.annotation.Target;
+import kotlin.reflect.KClass
 
 @MustBeDocumented
-@Target(allowedTargets = AnnotationTarget.FUNCTION)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey
-public @interface ViewModelMapKey {
-    Class<? extends ViewModel> value();
-}
+annotation class ViewModelMapKey(val value: KClass<out ViewModel>)

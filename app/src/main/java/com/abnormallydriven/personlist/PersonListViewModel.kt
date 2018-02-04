@@ -3,6 +3,7 @@ package com.abnormallydriven.personlist
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.support.annotation.NonNull
 import com.abnormallydriven.personlist.dagger.ApplicationResourcesModule
 import io.reactivex.Scheduler
 import io.reactivex.SingleObserver

@@ -11,7 +11,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [ApplicationResourcesModule::class,
     AndroidInjectionModule::class,
-    PersonListActivityInjectorModule::class])
+    PersonListActivityInjectorModule::class,
+    ViewModelModule::class])
 interface PersonListApplicationComponent : AndroidInjector<PersonListApp> {
 
     @Component.Builder
